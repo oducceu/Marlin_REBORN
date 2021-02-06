@@ -1,12 +1,12 @@
-# Marlin 3D Printer Firmware for Flying Bear 4S and 5
+# Marlin 3D Printer Firmware for Flying Bear Reborn
 
-Это конфигурация [официального Marlin](https://github.com/MarlinFirmware/Marlin) для принтера Flying Bear Ghost 4S и 5 (плата MKS Robin Nano 1.x).
+Это конфигурация является форком проекта https://github.com/Sergey1560/Marlin_FB4S основанного на [официальном Marlin](https://github.com/MarlinFirmware/Marlin), настройки изменены для использования прошивки на принтерах Flying Bear Reborn (плата MKS Robin Nano 1.x).
 
-Эта ветка содержит дополнительный код для работы с модулем [MKS WIFI](https://github.com/makerbase-mks/MKS-WIFI), установленным в FB4S и FB5. Загрузка файлов через стандартный plugin в Cura.
+Эта ветка содержит дополнительный код для работы с модулем [MKS WIFI](https://github.com/makerbase-mks/MKS-WIFI), установленным в Flying Bear Reborn. Загрузка файлов через стандартный plugin в Cura.
 
-Прошивка работает на принтерах Flying Bear Ghost 4S и 5. Экран работает. WIFI работает.
+Прошивка работает на принтерах Flying Bear Reborn. Экран работает. WIFI работает.
 
-Если у вас есть какие-то вопросы по настройке прошивки или по ее использованию, вы можете задать свой вопрос в [telegram группе](https://t.me/Ghostbustersss).
+Если у вас есть какие-то вопросы по настройке прошивки или по ее использованию, вы можете задать свой вопрос в [telegram группе](https://t.me/Reborn_3D).
 
 ## MKS WIFI модуль
 
@@ -28,10 +28,6 @@
 ## Как работает, как настроить
 
 ### Варианты прошивки
-
-Если вас устраивает типовой вариант конфигурации, можно взять готовые файлы прошивки можно в разделе [Releases](https://github.com/Sergey1560/Marlin_FB4S/releases)
-
-Вернуть стандартную прошивку можно в любой момент. Просто запишите ее на SD и включите принтер.
 
 Для настройки под свои нужды, прошивку нужно собрать самостоятельно.
 
