@@ -1,4 +1,4 @@
-# Marlin 3D Printer Firmware for Flying Bear Reborn
+# Marlin 3D Printer Firmware for Flying Bear REBORN
 
 Это конфигурация является форком проекта https://github.com/Sergey1560/Marlin_FB4S основанного на [официальном Marlin](https://github.com/MarlinFirmware/Marlin), настройки изменены для использования прошивки на принтерах Flying Bear Reborn (плата MKS Robin Nano 1.x).
 
