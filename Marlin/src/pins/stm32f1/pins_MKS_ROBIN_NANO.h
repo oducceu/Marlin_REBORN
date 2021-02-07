@@ -38,13 +38,6 @@
 //
 #define DISABLE_JTAG
 
-/*
-Управление подсветкой платой в разъеме второго экструдера
-Управление ногой En
-https://easyeda.com/sst78rust/fb4s-led-control
-*/
-#define CASE_LED_INSTEAD_E1
-
 //
 // EEPROM
 //
@@ -65,12 +58,6 @@ https://easyeda.com/sst78rust/fb4s-led-control
 #define Z_MIN_PIN                           PA11
 #define Z_MAX_PIN                           PC4
 
-/*
-BlTouch
-*/
-#define SERVO0_PIN                          PB2   
-#define BL_TOUCH_Z_PIN                      PC4
-
 //
 // Steppers
 //
@@ -90,13 +77,9 @@ BlTouch
 #define E0_STEP_PIN                         PD6
 #define E0_DIR_PIN                          PD3
 
-#ifdef CASE_LED_INSTEAD_E1
-  #define LED_CASE_PIN                      PA3
-#else
- #define E1_ENABLE_PIN                      PA3
- #define E1_STEP_PIN                        PA6
- #define E1_DIR_PIN                         PA1
-#endif
+#define E1_ENABLE_PIN                      PA3
+#define E1_STEP_PIN                        PA6
+#define E1_DIR_PIN                         PA1
 
 //
 // Temperature Sensors
@@ -135,8 +118,11 @@ BlTouch
 /*
 Управление питанием
 */
-#define SUICIDE_PIN                       PE5   
-#define SUICIDE_PIN_INVERTING             false
+//#define SUICIDE_PIN                       PE5   
+//#define SUICIDE_PIN_INVERTING             false
+//#define PLR_PIN                           PA2   // PW_DET
+//#define KILL_PIN                        PA2   // Enable MKSPWC DET PIN
+//#define KILL_PIN_STATE                  true  // Enable MKSPWC PIN STATE
 
 
 //
@@ -165,10 +151,8 @@ BlTouch
   #define WIFI_IO1_PIN                      PC7   // MKS ESP WIFI IO1 PIN
   #define WIFI_RESET_PIN                    PA5   // MKS ESP WIFI RESET PIN
 #else
-  //#define POWER_LOSS_PIN                  PA2   // PW_DET
-  //#define PS_ON_PIN                       PB2   // PW_OFF
   #define FIL_RUNOUT_PIN                    PA4
-  #define FIL_RUNOUT2_PIN                   PE6
+//  #define FIL_RUNOUT2_PIN                   PE6
 #endif
 
 //
