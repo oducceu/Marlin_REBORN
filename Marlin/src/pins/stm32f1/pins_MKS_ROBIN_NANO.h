@@ -23,6 +23,7 @@
 
 /**
  * MKS Robin nano (STM32F130VET6) board pin assignments
+ * https://github.com/makerbase-mks/MKS-Robin-Nano-V1.X/tree/master/hardware
  */
 
 #if NOT_TARGET(STM32F1, STM32F1xx)
@@ -33,10 +34,22 @@
 
 #define BOARD_INFO_NAME "MKS Robin Nano"
 
+#define BOARD_NO_NATIVE_USB
+
+// Avoid conflict with TIMER_SERVO when using the STM32 HAL
+#define TEMP_TIMER 5
+
 //
 // Release PB4 (Y_ENABLE_PIN) from JTAG NRST role
 //
 #define DISABLE_JTAG
+
+/*
+Управление подсветкой платой в разъеме второго экструдера
+Управление ногой En
+https://easyeda.com/sst78rust/fb4s-led-control
+*/
+//#define CASE_LED_INSTEAD_E1
 
 //
 // EEPROM
@@ -48,7 +61,7 @@
   #define MARLIN_EEPROM_SIZE    EEPROM_PAGE_SIZE  // 2KB
 #endif
 
-#define ENABLE_SPI2
+#define SPI_DEVICE                             2
 
 //
 // Limit Switches
@@ -57,6 +70,13 @@
 #define Y_STOP_PIN                          PA12
 #define Z_MIN_PIN                           PA11
 #define Z_MAX_PIN                           PC4
+
+/*
+BlTouch
+
+#define SERVO0_PIN                          PB2   
+#define BL_TOUCH_Z_PIN                      PC4
+*/
 
 //
 // Steppers
@@ -77,9 +97,10 @@
 #define E0_STEP_PIN                         PD6
 #define E0_DIR_PIN                          PD3
 
-#define E1_ENABLE_PIN                      PA3
-#define E1_STEP_PIN                        PA6
-#define E1_DIR_PIN                         PA1
+#define E1_ENABLE_PIN                       PA3
+#define E1_STEP_PIN                         PA6
+#define E1_DIR_PIN                          PA1
+
 
 //
 // Temperature Sensors
@@ -117,13 +138,13 @@
 
 /*
 Управление питанием
-*/
-//#define SUICIDE_PIN                       PE5   
-//#define SUICIDE_PIN_INVERTING             false
-//#define PLR_PIN                           PA2   // PW_DET
-//#define KILL_PIN                        PA2   // Enable MKSPWC DET PIN
-//#define KILL_PIN_STATE                  true  // Enable MKSPWC PIN STATE
 
+ #define SUICIDE_PIN                        PE5   
+ #define SUICIDE_PIN_INVERTING              false
+ #define KILL_PIN                           PA2   // Enable MKSPWC DET PIN
+ #define PLR_PIN                            KILL_PIN   // PW_DET
+ #define KILL_PIN_STATE                     HIGH  // Enable MKSPWC PIN STATE
+*/
 
 //
 // Thermocouples
@@ -151,8 +172,10 @@
   #define WIFI_IO1_PIN                      PC7   // MKS ESP WIFI IO1 PIN
   #define WIFI_RESET_PIN                    PA5   // MKS ESP WIFI RESET PIN
 #else
-  #define FIL_RUNOUT_PIN                    PA4
-//  #define FIL_RUNOUT2_PIN                   PE6
+  //#define POWER_LOSS_PIN                  PA2   // PW_DET
+  //#define PS_ON_PIN                       PB2   // PW_OFF
+  #define FIL_RUNOUT_PIN                   PA4
+  #define FIL_RUNOUT2_PIN                  PE6
 #endif
 
 //
@@ -163,7 +186,7 @@
 #endif
 
 #define SDIO_SUPPORT
-#define SDIO_CLOCK                       4500000  // 4.5 MHz
+#define SDIO_CLOCK                       18000000  // 4.5 MHz
 #define SD_DETECT_PIN                       PD12
 #define ONBOARD_SD_CS_PIN                   PC11
 
@@ -174,17 +197,13 @@
 
 /**
  * Note: MKS Robin TFT screens use various TFT controllers.
- * If the screen stays white, disable 'LCD_RESET_PIN'
+ * If the screen stays white, disable 'TFT_RESET_PIN'
  * to let the bootloader init the screen.
  */
-
 // Shared FSMC Configs
 #if HAS_FSMC_TFT
-  #define DOGLCD_MOSI                       -1    // prevent redefine Conditionals_post.h
+  #define DOGLCD_MOSI                       -1    // Prevent auto-define by Conditionals_post.h
   #define DOGLCD_SCK                        -1
-
-  #define FSMC_CS_PIN                       PD7   // NE4
-  #define FSMC_RS_PIN                       PD11  // A0
 
   #define TOUCH_CS_PIN                      PA7   // SPI2_NSS
   #define TOUCH_SCK_PIN                     PB13  // SPI2_SCK
@@ -200,52 +219,13 @@
   #define FSMC_DMA_DEV                      DMA2
   #define FSMC_DMA_CHANNEL               DMA_CH5
 
+  #define TFT_CS_PIN                 FSMC_CS_PIN
+  #define TFT_RS_PIN                 FSMC_RS_PIN
+
   #define TOUCH_BUTTONS_HW_SPI
   #define TOUCH_BUTTONS_HW_SPI_DEVICE          2
 
-  #define TFT_BUFFER_SIZE                  4800
-#endif
-
-// XPT2046 Touch Screen calibration
-#if EITHER(TFT_LVGL_UI_FSMC, TFT_480x320)
-  #ifndef XPT2046_X_CALIBRATION
-    #define XPT2046_X_CALIBRATION          17880
-  #endif
-  #ifndef XPT2046_Y_CALIBRATION
-    #define XPT2046_Y_CALIBRATION         -12234
-  #endif
-  #ifndef XPT2046_X_OFFSET
-    #define XPT2046_X_OFFSET                 -45
-  #endif
-  #ifndef XPT2046_Y_OFFSET
-   #define XPT2046_Y_OFFSET                  349
-  #endif
-#elif ENABLED(TFT_CLASSIC_UI)
-  #ifndef XPT2046_X_CALIBRATION
-    #define XPT2046_X_CALIBRATION          12149
-  #endif
-  #ifndef XPT2046_Y_CALIBRATION
-    #define XPT2046_Y_CALIBRATION          -8746
-  #endif
-  #ifndef XPT2046_X_OFFSET
-    #define XPT2046_X_OFFSET                 -35
-  #endif
-  #ifndef XPT2046_Y_OFFSET
-    #define XPT2046_Y_OFFSET                 256
-  #endif
-#elif ENABLED(TFT_320x240)
-  #ifndef XPT2046_X_CALIBRATION
-    #define XPT2046_X_CALIBRATION         -12246
-  #endif
-  #ifndef XPT2046_Y_CALIBRATION
-    #define XPT2046_Y_CALIBRATION           9453
-  #endif
-  #ifndef XPT2046_X_OFFSET
-    #define XPT2046_X_OFFSET                 360
-  #endif
-  #ifndef XPT2046_Y_OFFSET
-    #define XPT2046_Y_OFFSET                 -22
-  #endif
+  #define TFT_BUFFER_SIZE                  4000
 #endif
 
 #define HAS_SPI_FLASH                          1
@@ -257,6 +237,7 @@
   #define W25QXX_SCK_PIN                    PB13
 #endif
 
+
 /*
 Модуль MKS WIFI
 */
@@ -264,6 +245,7 @@
 
 #ifdef MKS_WIFI
 
+ #define MKS_WIFI_SERIAL_NUM                SERIAL_PORT_2
  #define MKS_WIFI_BAUDRATE                  115200
  #undef PLATFORM_M997_SUPPORT
 
@@ -279,17 +261,17 @@
   //
   // Software serial
   //
-  #define X_SERIAL_TX_PIN                   PA6
-  #define X_SERIAL_RX_PIN                   PA1
+  #define X_SERIAL_TX_PIN                   PB2
+  #define X_SERIAL_RX_PIN                   PB2
 
-  #define Y_SERIAL_TX_PIN                   PA6
-  #define Y_SERIAL_RX_PIN                   PA1
-
-  #define Z_SERIAL_TX_PIN                   PA6
-  #define Z_SERIAL_RX_PIN                   PA1
-
-  #define E0_SERIAL_TX_PIN                  PA6
-  #define E0_SERIAL_RX_PIN                  PA1
+  #define Y_SERIAL_TX_PIN                   PB2
+  #define Y_SERIAL_RX_PIN                   PB2
+/*
+  #define Z_SERIAL_TX_PIN                   PB2
+  #define Z_SERIAL_RX_PIN                   PB2
+*/
+  #define E0_SERIAL_TX_PIN                  PB2
+  #define E0_SERIAL_RX_PIN                  PB2
 
   // Reduce baud rate to improve software serial reliability
   #define TMC_BAUD_RATE 19200
