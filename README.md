@@ -39,7 +39,7 @@
 
 ![How to choose firmware](./How-to-choose-firmware.jpg)
 
-Если вас устраивает типовой вариант конфигурации, можно взять готовые файлы прошивки можно в разделе [Releases](https://github.com/SergPanin/Marlin_REBORN/release)
+Если вас устраивает типовой вариант конфигурации, можно взять готовые файлы прошивки можно в разделе [Releases](https://github.com/SergPanin/Marlin_REBORN/releases)
 
 Для настройки под свои нужды, прошивку нужно собрать самостоятельно.
 
