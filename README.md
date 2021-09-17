@@ -2,7 +2,7 @@
 
 ![Reborn logo](./reborn.jpg)
 
-Это конфигурация сделана для принтера Flying Bear Reborn с использованием ветки Марлина 2.0.9.1 для принтеров Flying Bear Ghost, автор Sergey1560 (https://github.com/Sergey1560/Marlin_FB4S). На данный момент поддерживаются платы MKS Robin Nano 1.x, MKS Robin Nano v2, MKS Robin Nano-s v1.3
+Это конфигурация сделана для принтера Flying Bear Reborn с использованием ветки Марлина 2.0.9.1 для принтеров Flying Bear Ghost, автор Sergey1560 (https://github.com/Sergey1560/Marlin_FB4S). На данный момент поддерживаются платы MKS Robin Nano 1.x, MKS Robin Nano v1.3 - на доработке, временно недоступна, MKS Robin Nano-s v1.3- на доработке, временно недоступна
 
 Эта ветка содержит дополнительный код для работы с модулем [MKS WIFI](https://github.com/makerbase-mks/MKS-WIFI), установленным в Reborn. Загрузка файлов через стандартный plugin в Cura.
 
