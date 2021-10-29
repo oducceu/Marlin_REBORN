@@ -927,7 +927,8 @@
  * Override with M92
  *                                      X, Y, Z [, I [, J [, K]]], E0 [, E1[, E2...]]
  */
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { 160, 160, 800, 815 }
+// #define DEFAULT_AXIS_STEPS_PER_UNIT   { 160, 160, 800, 815 }  // MKS Robin Nano V1.3
+#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 400, 408 }  // MKS Robin Nano-S V1.3
 
 /**
  * Default Max Feed Rate (mm/s)
