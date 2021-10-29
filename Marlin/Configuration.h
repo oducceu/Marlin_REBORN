@@ -142,6 +142,15 @@
   #define MOTHERBOARD BOARD_MKS_ROBIN_NANO_V1_3_F4
 #endif
 
+#define FB_REBORN_MKS_ROBIN_NANO_V1_3_F4            // MKS Robin Nano V1.3
+//#define FB_REBORN_MKS_ROBIN_NANO_S_V1_3_F4          // MKS Robin Nano-S V1.3
+//#define FB_REBORN_MKS_ROBIN_NANO_S_V1_3_F4_E_ON_E1  // MKS Robin Nano-S V1.3 with E on fifth driver slot
+
+#ifdef FB_REBORN_MKS_ROBIN_NANO_S_V1_3_F4_E_ON_E1
+  #undef EXT_EXTRUDER_DRIVER
+  #define EXT_EXTRUDER_DRIVER 1 // The pins are swapped between E0 and E1
+#endif
+
 // Name displayed in the LCD "Ready" message and Info menu
 #define CUSTOM_MACHINE_NAME "FB Reborn"
 
@@ -927,7 +936,15 @@
  * Override with M92
  *                                      X, Y, Z [, I [, J [, K]]], E0 [, E1[, E2...]]
  */
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { 160, 160, 800, 815 }
+#ifdef FB_REBORN_MKS_ROBIN_NANO_V1_3_F4           // MKS Robin Nano V1.3
+  #define DEFAULT_AXIS_STEPS_PER_UNIT   { 160, 160, 800, 815 }
+#endif
+#ifdef FB_REBORN_MKS_ROBIN_NANO_S_V1_3_F4         // MKS Robin Nano-S V1.3
+  #define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 400, 408 }
+#endif
+#ifdef FB_REBORN_MKS_ROBIN_NANO_S_V1_3_F4_E_ON_E1 // MKS Robin Nano-S V1.3 with E on fifth driver slot
+  #define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 400, 408 }
+#endif
 
 /**
  * Default Max Feed Rate (mm/s)
@@ -1319,11 +1336,32 @@
 #define DISABLE_INACTIVE_EXTRUDER   // Keep only the active extruder enabled
 
 // @section machine
+#ifdef FB_REBORN_MKS_ROBIN_NANO_V1_3_F4           // MKS Robin Nano V1.3
+  #define USR_X_DIR false
+  #define USR_Y_DIR false
+  #define USR_Z_DIR true
+  #define USR_E0_DIR true
+  #define USR_E1_DIR true
+#endif
+#ifdef FB_REBORN_MKS_ROBIN_NANO_S_V1_3_F4         // MKS Robin Nano-S V1.3
+  #define USR_X_DIR true
+  #define USR_Y_DIR true
+  #define USR_Z_DIR false
+  #define USR_E0_DIR false
+  #define USR_E1_DIR true
+#endif
+#ifdef FB_REBORN_MKS_ROBIN_NANO_S_V1_3_F4_E_ON_E1 // MKS Robin Nano-S V1.3 with E on fifth driver slot
+  #define USR_X_DIR true
+  #define USR_Y_DIR true
+  #define USR_Z_DIR false
+  #define USR_E0_DIR true
+  #define USR_E1_DIR false
+#endif
 
 // Invert the stepper direction. Change (or reverse the motor connector) if an axis goes the wrong way.
-#define INVERT_X_DIR false
-#define INVERT_Y_DIR false
-#define INVERT_Z_DIR true
+#define INVERT_X_DIR USR_X_DIR
+#define INVERT_Y_DIR USR_Y_DIR
+#define INVERT_Z_DIR USR_Z_DIR
 //#define INVERT_I_DIR false
 //#define INVERT_J_DIR false
 //#define INVERT_K_DIR false
@@ -1331,8 +1369,8 @@
 // @section extruder
 
 // For direct drive extruder v9 set to true, for geared extruder set to false.
-#define INVERT_E0_DIR true
-#define INVERT_E1_DIR true
+#define INVERT_E0_DIR USR_E0_DIR
+#define INVERT_E1_DIR USR_E1_DIR
 #define INVERT_E2_DIR false
 #define INVERT_E3_DIR false
 #define INVERT_E4_DIR false
